@@ -16,18 +16,17 @@ class ListNode {
 class ReverseLinkedList {
  public:
   static ListNode *reverse(ListNode *head) {
+    ListNode *prv = nullptr;
     auto cur = head;
-    auto n = head->next;
-    head->next = nullptr;
-    while (n != nullptr) {;
-        auto tmp = n->next;
-        n->next = cur;
-        cur = n;
-        n = tmp;
+    while (cur != nullptr) {
+      auto tmp = cur->next;
+      cur->next = prv;
+      prv = cur;
+      cur = tmp;
     }
     cout << endl;
 
-    return cur;
+    return prv;
   }
 };
 
@@ -44,4 +43,5 @@ int main(int argc, char *argv[]) {
     cout << result->value << " ";
     result = result->next;
   }
+  cout << endl;
 }
