@@ -32,7 +32,36 @@ class NextInterval {
   static vector<int> findNextInterval(const vector<Interval> &intervals) {
     int n = intervals.size();
     vector<int> result(n);
-    // TODO: Write your code here
+
+    auto lessStart = [](pair<int, Interval> a, pair<int, Interval> b) { return a.second.start > b.second.start; };
+    priority_queue<pair<int, Interval>, vector<pair<int, Interval>>, decltype(lessStart)> q_start(lessStart);
+    auto lessEnd = [](pair<int, Interval> a, pair<int, Interval> b) { return a.second.end > b.second.end; };
+    priority_queue<pair<int, Interval>, vector<pair<int, Interval>>, decltype(lessEnd)> q_end(lessEnd);
+
+    for (auto i=0; i<intervals.size(); i++) {
+      q_start.push(make_pair(i, intervals[i]));
+      q_end.push(make_pair(i, intervals[i]));
+    }
+
+    bool done;
+    while(q_end.size() > 0) {
+      done = false;
+      auto x = q_end.top();
+      q_end.pop();
+
+      while(q_start.size() > 0) {
+        auto y = q_start.top();
+        if (y.second.start >= x.second.end) {
+          result[x.first] = y.first;
+          done = true;
+          break;
+        }
+        q_start.pop();
+      }
+      if (done) { continue; }
+      result[x.first] = -1;
+    }
+
     return result;
   }
 };
