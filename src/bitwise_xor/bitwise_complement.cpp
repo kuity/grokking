@@ -1,11 +1,11 @@
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
 class CalculateComplement {
     public:
      static int bitwiseComplement(int n) {
-        // TODO: Write your code here
         auto x = n;
         auto counter = 0;
         while (x != 0) {
@@ -14,15 +14,8 @@ class CalculateComplement {
         }
         auto complement = n;
         cout << "counter is: " << counter << endl;
-
-        x = 1;
-        while (counter > 0) {
-            complement = complement ^ x;
-            cout << "complement is: " << complement << endl;
-            x = x << 1;
-            counter--;
-        }
-        return complement;
+        int ones = pow(2, counter)-1;
+        return complement ^ ones;
     }
 };
 

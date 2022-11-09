@@ -1,12 +1,33 @@
 #include <iostream>
 #include <vector>
+#include <math.h>
 
 using namespace std;
 
 class Solution {
   public:
+    static int complement(int n, int digits) {
+        auto complement = n;
+        int ones = pow(2, digits)-1;
+        return complement ^ ones;
+    }
+
     static vector<vector<int>> flipAndInvertImage(vector<vector<int>> arr) {
-      //TODO: Write your code here
+      auto sz = arr.size();
+      for (auto h=0; h<sz; h++) {
+        auto num = 0;
+        for (auto i=0; i<sz; i++) {
+            // cout << v[i];
+            num += arr[h][i] * pow(2, i);
+        }
+        // cout << endl;
+        // cout << num << endl;
+        auto c = complement(num, sz);
+        for (auto j=0; j<sz; j++) {
+            arr[h][sz-j-1] = c & 1;
+            c = c >> 1;
+        }
+      }
       return arr;
     }
 
