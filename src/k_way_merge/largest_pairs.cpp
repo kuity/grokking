@@ -29,8 +29,6 @@ class LargestPairs {
     }
 
     while(i<nums1.size() && j<nums2.size() && counter < k) {
-      auto l1_num = nums1[i];
-      auto l2_num = nums2[j];
       int greatest;
       bool current_is_one;
       if (nums1[i] >= nums2[j]) {
@@ -47,12 +45,12 @@ class LargestPairs {
       if (current_is_one != last_is_one) {
         buf_max = buf_next;
         buf_next = {};
-        last_is_one = !last_is_one;
-      }
+        last_is_one = current_is_one;
+      } 
+      buf_next.push_back(greatest);
 
       for (auto x: buf_max) {
         result.push_back(make_pair(x, greatest));
-        buf_next.push_back(greatest);
         counter++;
         if (counter == k) {
           break;
@@ -71,10 +69,3 @@ int main(int argc, char *argv[]) {
     cout << "[" << pair.first << ", " << pair.second << "] ";
   }
 }
-
-
-x x x     x
-      y y
-
-x x x   x
-      y   y
