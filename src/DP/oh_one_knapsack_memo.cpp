@@ -19,6 +19,7 @@ class Knapsack {
     }
 
     // if we have already solved a similar problem, return the result from memory
+    // this "memoization" is the only difference from brute force method
     if (dp[currentIndex][capacity] != -1) {
       return dp[currentIndex][capacity];
     }
